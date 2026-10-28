@@ -1,0 +1,281 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Balas Chat Shopee</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap">
+<style>
+/* Layout: satu kolom sempit, kartu SOP bertumpuk, tombol Salin di tiap balasan */
+:root {
+  --bg: #fff4f8;
+  --card: #ffffff;
+  --line: #f4cfe0;
+  --ink: #3a1a2b;
+  --muted: #8a6b7c;
+  --accent: #e8508a;
+  --accent-ink: #ffffff;
+  --bubble: #fde3ee;
+  --th: #fde3ee;
+  --warn-bg: #fff0d4;
+  --warn-ink: #7a4a00;
+  --font-body: "Quicksand", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1218; --card: #271a22; --line: #4a2f3e; --ink: #f6e6ee; --muted: #b997a9;
+    --accent: #f0679c; --accent-ink: #2a0f1b; --bubble: #3a2230; --th: #33202b;
+    --warn-bg: #3a2d17; --warn-ink: #f2d49a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1c1218; --card: #271a22; --line: #4a2f3e; --ink: #f6e6ee; --muted: #b997a9;
+  --accent: #f0679c; --accent-ink: #2a0f1b; --bubble: #3a2230; --th: #33202b;
+  --warn-bg: #3a2d17; --warn-ink: #f2d49a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.55; font-weight: 500;
+  padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px; }
+header .title { min-width: 0; flex: 1 1 240px; }
+h1 { margin: 0; font-size: 28px; line-height: 1.2; color: var(--accent); font-weight: 700; text-wrap: balance; }
+h2 { margin: 0 0 12px; font-size: 18px; font-weight: 700; text-wrap: balance; }
+.sub { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+.tools { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill {
+  font: inherit; font-size: 13px; font-weight: 600; color: var(--ink);
+  background: var(--bubble); border: 0; border-radius: 999px; padding: 8px 16px; cursor: pointer;
+}
+.pill:hover { filter: brightness(0.97); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section { display: flex; flex-direction: column; }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.warn { background: var(--warn-bg); color: var(--warn-ink); border-radius: 14px; padding: 14px 16px; font-size: 14px; }
+.warn b { display: block; margin-bottom: 6px; }
+.warn ul { margin: 0; padding-left: 20px; }
+.tablewrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+th { background: var(--th); font-weight: 700; }
+tr:last-child td { border-bottom: 0; }
+td.tulis { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.note { margin: 12px 0 0; color: var(--muted); font-size: 13.5px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card h3 { margin: 0; font-size: 15px; font-weight: 700; }
+.card p { margin: 0; font-size: 14px; color: var(--muted); }
+.card p.dark { color: var(--ink); }
+.card ul { margin: 0; padding-left: 20px; font-size: 14px; }
+.jadwal strong { font-weight: 700; }
+.jadwal .who { color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+.msg {
+  background: var(--bubble); border-radius: 12px; padding: 12px 14px; font-size: 14px;
+  white-space: pre-line; overflow-wrap: anywhere;
+}
+.copy {
+  align-self: flex-start; font: inherit; font-size: 14px; font-weight: 700;
+  background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 999px; padding: 9px 22px; cursor: pointer;
+}
+.copy:hover { filter: brightness(1.06); }
+.copy.done { background: #2f9e6b; color: #fff; }
+.numbox {
+  align-self: flex-start; background: var(--bubble); border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 18px; font-size: 26px; font-weight: 700; letter-spacing: 0.04em; font-variant-numeric: tabular-nums;
+}
+.label { font-size: 13.5px; color: var(--muted); margin: 0; }
+#toast {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+#toast.show { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="title">
+      <h1>Balas Chat Shopee</h1>
+      <p class="sub">SOP balasan chat untuk kyou. Tekan Salin di tiap balasan, lalu tempel ke chat.</p>
+    </div>
+    <div class="tools">
+      <button class="pill" id="copylink" type="button">Salin link</button>
+      <button class="pill" id="theme" type="button">Gelap/Terang</button>
+    </div>
+  </header>
+
+  <section>
+    <h2>Hal yang tidak boleh disebutkan</h2>
+    <div class="stack">
+      <div class="warn">Usahakan tidak menyebutkan media sosial, platform, atau kontak di luar Shopee secara langsung karena berisiko terkena pelanggaran.</div>
+      <div class="warn">
+        <b>Dilarang kirim dalam bentuk teks:</b>
+        <ul>
+          <li>Nomor hape</li>
+          <li>Nomor rekening</li>
+          <li>Link website</li>
+        </ul>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Kata asli</th><th>Tulis di chat Shopee</th></tr></thead>
+          <tbody>
+            <tr><td>web</td><td class="tulis">vveb</td></tr>
+            <tr><td>WhatsApp</td><td class="tulis">vvshapp</td></tr>
+            <tr><td>Google</td><td class="tulis">gvvgle</td></tr>
+            <tr><td>Nomor hp</td><td class="tulis">numor hape</td></tr>
+            <tr><td>Nomor rekening</td><td class="tulis">numor r3kning</td></tr>
+            <tr><td>Tokopedia</td><td class="tulis">toko sebelah</td></tr>
+            <tr><td>TikTok Shop</td><td class="tulis">toko sebelah</td></tr>
+            <tr><td>batalkan</td><td class="tulis">b:t al:kn</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="note">Untuk Tokopedia dan TikTok Shop, pakai istilah “toko sebelah” saja.</p>
+  </section>
+
+  <section>
+    <h2>Jadwal balas chat</h2>
+    <div class="stack">
+      <div class="card jadwal"><div><strong>Shift pagi</strong> · jam 07.00-09.00<div class="who">Hanan</div></div></div>
+      <div class="card jadwal"><div><strong>Shift malam</strong> · jam 19.00-22.00<div class="who">Hanan / Gita</div></div></div>
+      <div class="card jadwal"><div><strong>Hari Minggu</strong><div class="who">Vira handle Shopee full: urus pesanan dan chat Shopee (jika luang).</div></div></div>
+    </div>
+    <p class="note">Sewaktu-waktu aku akan minta tolong jika sedang tidak bisa handle chat di jam kerjaku.</p>
+  </section>
+
+  <section>
+    <h2>Contoh balasan</h2>
+    <div class="stack">
+
+      <div class="card">
+        <h3>1. Buyer minta gambar full produk (cast-off atau vulgar)</h3>
+        <p class="dark">Jangan kirim gambar lewat chat Shopee. Arahkan buyer ke vveb Kyou.</p>
+        <div class="msg">Halo kak~ Mohon maaf ya, untuk gambar full produk Kyou belum bisa kirim lewat chat Shopee ^^
+Kakak bisa lihat gambar lengkapnya di vveb Kyou ya. Terima kasih kak~</div>
+        <button class="copy" type="button">Salin</button>
+      </div>
+
+      <div class="card">
+        <h3>2. Buyer ingin kirim video unboxing</h3>
+        <p class="dark">Video sering gagal terkirim lewat chat Shopee, jadi arahkan buyer ke admin via vvshapp. Jangan kirim nomor sebagai teks: kirim gambar berisi nomor admin (sesuai SOP internal).</p>
+        <p class="label">Nomor admin Kyou (kirim fotonya ini):</p>
+        <div class="numbox">819 3509 2014</div>
+        <div class="msg">Halo kak~ Untuk kirim video unboxing, kakak bisa langsung hubungi admin Kyou lewat vvshapp ya ^^
+Nomor adminnya Kyou kirimkan lewat gambar di bawah ini. Terima kasih kak~</div>
+        <button class="copy" type="button">Salin</button>
+      </div>
+
+      <div class="card">
+        <h3>3. Pengiriman terpisah (buyer bayar ongkir tambahan)</h3>
+        <ul>
+          <li>Minta numor hape buyer.</li>
+          <li>Kirim numor r3kning Kyou dalam bentuk gambar.</li>
+          <li>Jangan kirim numor r3kning sebagai teks.</li>
+        </ul>
+        <div class="msg">Halo kak~ Untuk pengiriman terpisah, Kyou perlu numor hape kakak untuk pendataan JNE REG ya ^^
+Cara mengirim numornya: kirim angkanya sebagian-sebagian ya kak, supaya tidak terblokir oleh sistem Shopee. Setiap satu bagian, tekan enter (kirim pesan), lalu lanjutkan bagian berikutnya. Angka 0 di depan tidak perlu ditulis.
+Contoh:
+829
+(enter / kirim pesan)
+343434
+(enter / kirim pesan)
+dan seterusnya
+Numor r3kning Kyou untuk pembayaran ongkir tambahan ada di gambar di bawah ya kak. Terima kasih~</div>
+        <button class="copy" type="button">Salin</button>
+      </div>
+
+      <div class="card">
+        <h3>4. Buyer mendesak paket segera dikirim</h3>
+        <p class="dark">Pakai balasan ini kalau paket sudah diserahkan ke agen ekspedisi.</p>
+        <div class="msg">Halo kak~ Paket kakak sudah Kyou serahkan ke agen jasa kirim ya ^^
+Nomor resi di Shopee akan ter-update pada malam hari. Mohon ditunggu sebentar ya kak, terima kasih~</div>
+        <button class="copy" type="button">Salin</button>
+      </div>
+
+      <div class="card">
+        <h3>5. Buyer ingin batalkan pesanan (misal salah alamat)</h3>
+        <p class="dark">Jangan langsung setuju, terutama kalau paket sudah diproses atau diserahkan ke ekspedisi.</p>
+        <div class="msg">Halo kak~ Mohon maaf, pesanan kakak sudah diproses dan paketnya sudah Kyou serahkan ke agen jasa kirim, jadi belum bisa b:t al:kn ya ^^
+Nomor resi di Shopee akan ter-update pada malam hari. Mohon ditunggu ya kak, terima kasih~</div>
+        <button class="copy" type="button">Salin</button>
+      </div>
+
+      <div class="card">
+        <h3>6. Buyer minta produk di-upload ke Shopee</h3>
+        <p class="dark">Jangan langsung menyanggupi. Sebelum upload:</p>
+        <ul>
+          <li>Cek harga dulu.</li>
+          <li>Infokan harga di Shopee.</li>
+          <li>Jelaskan harga belum termasuk promo/diskon.</li>
+          <li>Tanya apakah buyer tetap mau beli lewat Shopee?</li>
+        </ul>
+        <div class="msg">Halo kak~ Untuk item yang kakak inginkan, jika di-upload ke Shopee harganya Rp xxx.xxx ya ^^
+Harga tersebut belum termasuk promo atau diskon karena produknya baru di-upload.
+Apakah kakak tetap ingin lanjut membeli lewat Shopee? Kyou tunggu kabarnya ya kak~</div>
+        <button class="copy" type="button">Salin</button>
+      </div>
+
+    </div>
+  </section>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  var timer;
+  function say(t) {
+    toast.textContent = t; toast.classList.add('show');
+    clearTimeout(timer); timer = setTimeout(function () { toast.classList.remove('show'); }, 1600);
+  }
+  function fallback(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    return ok;
+  }
+  function copyText(text, onOk) {
+    function ok() { onOk(); }
+    function bad() { if (fallback(text)) ok(); else say('Gagal menyalin, salin manual ya'); }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(ok, bad);
+      } else { bad(); }
+    } catch (e) { bad(); }
+  }
+
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var msg = btn.parentNode.querySelector('.msg');
+      copyText(msg.innerText.trim(), function () {
+        btn.textContent = 'Tersalin'; btn.classList.add('done'); say('Balasan tersalin');
+        setTimeout(function () { btn.textContent = 'Salin'; btn.classList.remove('done'); }, 1600);
+      });
+    });
+  });
+
+  document.getElementById('copylink').addEventListener('click', function () {
+    copyText(location.href.split('#')[0], function () { say('Link tersalin'); });
+  });
+
+  var root = document.documentElement;
+  try { var saved = localStorage.getItem('balas-chat-theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  document.getElementById('theme').addEventListener('click', function () {
+    var cur = root.getAttribute('data-theme');
+    if (!cur) cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('balas-chat-theme', next); } catch (e) {}
+  });
+})();
+</script>
+
+</body></html>
